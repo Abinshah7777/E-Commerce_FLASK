@@ -1,0 +1,12 @@
+<h2>All Catalogues</h2>
+<a href="{{ url_for('create_catalogue') }}">Add New Catalogue</a>
+<ul>
+  {% for cat in catalogues %}
+    <li>
+      <a href="{{ url_for('view_catalogue', catalogue_id=cat.catalogue_id) }}">
+        {{ cat.catalogue_name }} (ID: {{ cat.catalogue_id }})
+      </a>
+      | <a href="{{ url_for('delete_catalogue', catalogue_id=cat.catalogue_id) }}">Delete</a>
+    </li>
+  {% endfor %}
+</ul>

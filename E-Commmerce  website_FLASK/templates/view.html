@@ -1,0 +1,20 @@
+<h2>Catalogue Details</h2>
+<ul>
+  <li>ID: {{ catalogue.catalogue_id }}</li>
+  <li>Name: {{ catalogue.catalogue_name }}</li>
+  <li>Version: {{ catalogue.catalogue_version }}</li>
+  <li>Active: {{ 'Yes' if catalogue.is_cat_active else 'No' }}</li>
+  <li>Start: {{ catalogue.catalogue_start }}</li>
+  <li>End: {{ catalogue.catalogue_end }}</li>
+</ul>
+<a href="{{ url_for('index') }}">Back</a>
+<h2>{{ action }} Catalogue</h2>
+<form method="post">
+  ID: <input name="catalogue_id" value="{{ catalogue.catalogue_id if catalogue else '' }}" {% if action == "Update" %}readonly{% endif %}><br>
+  Name: <input name="catalogue_name" value="{{ catalogue.catalogue_name if catalogue else '' }}"><br>
+  Version: <input name="catalogue_version" value="{{ catalogue.catalogue_version if catalogue else '' }}"><br>
+  Is Active (1/0): <input name="is_cat_active" value="{{ 1 if catalogue and catalogue.is_cat_active else 0 }}"><br>
+  Start Date: <input name="catalogue_start" value="{{ catalogue.catalogue_start if catalogue else '' }}"><br>
+  End Date: <input name="catalogue_end" value="{{ catalogue.catalogue_end if catalogue else '' }}"><br>
+  <input type="submit" value="{{ action }}">
+</form>
