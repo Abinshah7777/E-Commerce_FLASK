@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogue Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">All Catalogues</h2>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('create_catalogue') }}" class="btn btn-primary mb-3">Add New Catalogue</a>
+
+        {% if catalogues %}
+          <ul class="list-group">
+            {% for cat in catalogues %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>{{ cat.catalogue_name }}</strong> (ID: {{ cat.catalogue_id }})
+                </div>
+                <div>
+                  <a href="{{ url_for('view_catalogue', catalogue_id=cat.catalogue_id) }}" class="btn btn-sm btn-info">View</a>
+                  <a href="{{ url_for('update_catalogue', catalogue_id=cat.catalogue_id) }}" class="btn btn-sm btn-warning">Update</a>
+                  <a href="{{ url_for('delete_catalogue', catalogue_id=cat.catalogue_id) }}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">No catalogues available.</p>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
